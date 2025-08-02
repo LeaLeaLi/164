@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- Image Gallery - Lea Li -->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Image Gallery</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        background-color: #fafafa;
+      }
+      h1 {
+        color: #e9289f;
+        margin-top: 20px;
+      }
+      #mainpic img {
+        height: 350px;
+        display: block;
+        margin: 20px auto;
+        border: 3px solid #ccc;
+        border-radius: 8px;
+      }
+      #caption {
+        margin: 10px;
+        font-weight: bold;
+        color: #db2bdb;
+      }
+      #next,
+      #prev {
+        display: inline-block;
+        margin: 10px;
+        padding: 8px 15px;
+        background-color: #b35620;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+      #next:hover,
+      #prev:hover {
+        background-color: #2155c7;
+      }
+    </style>
+    <script>
+      // image names
+      var pics = new Array("1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg");
+      var currPic = 0;
+
+      // next picture
+      function nextPic(e) {
+        e.preventDefault();
+        if (currPic < pics.length - 1) {
+          currPic++;
+          document.getElementById("prev").style.display = "inline-block";
+        } else {
+          document.getElementById("next").style.display = "none";
+        }
+        document.mainpic.src = pics[currPic];
+        updateCaption();
+      }
+
+      // previous picture
+      function prevPic(e) {
+        e.preventDefault();
+        if (currPic > 0) {
+          currPic--;
+          document.getElementById("next").style.display = "inline-block";
+        } else {
+          document.getElementById("prev").style.display = "none";
+        }
+        document.mainpic.src = pics[currPic];
+        updateCaption();
+      }
+
+      // caption
+      function updateCaption() {
+        document.getElementById("caption").innerHTML =
+          "Image " + (currPic + 1) + " of " + pics.length;
+      }
+
+      // loads
+      function initGallery() {
+        document.mainpic.src = pics[currPic];
+        document.getElementById("prev").style.display = "none";
+        updateCaption();
+      }
+    </script>
+  </head>
+  <body onload="initGallery();">
+    <h1
+      style="
+        text-align: center;
+        color: rgb(236, 24, 190);
+        font-family: Arial, sans-serif;
+      "
+    >
+      My Kirby Gallery <img src="kirby.png" alt="Kirby" height="30" />
+    </h1>
+    <div id="mainpic">
+      <img src="1.jpg" name="mainpic" alt="Gallery Image" />
+      <div id="caption"></div>
+      <a href="#" onclick="prevPic(event);" id="prev">Prev</a>
+      <a href="#" onclick="nextPic(event);" id="next">Next</a>
+    </div>
+  </body>
+</html>
